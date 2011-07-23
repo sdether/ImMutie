@@ -1,6 +1,6 @@
 ﻿/*
  * ImMutie
- * Copyright (C) 2010 Arne F. Claassen
+ * Copyright (C) 2011 Arne F. Claassen
  * http://www.claassen.net/geek/blog geekblog [at] claassen [dot] net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,14 +24,14 @@ namespace Droog.ImMutie.Test {
 
         [Test]
         public void Can_create_immutable() {
-            var a = Immutable.Build<Basic>(new { Id = 42, Name = "Bob" });
+            var a = Immutable.Build<Person>(new { Id = 42, Name = "Bob" });
             Assert.AreEqual(42, a.Id);
             Assert.AreEqual("Bob", a.Name);
         }
 
         [Test]
         public void Can_derive_immutable() {
-            var a = Immutable.Build<Basic>(new { Id = 42, Name = "Bob" });
+            var a = Immutable.Build<Person>(new { Id = 42, Name = "Bob" });
             var b = a.With(new { Id = 55 });
             Assert.AreNotSame(a, b);
             Assert.AreEqual(42, a.Id);
@@ -40,7 +40,7 @@ namespace Droog.ImMutie.Test {
         }
 
 
-        public class Basic {
+        public class Person {
             public int Id { get; private set; }
             public string Name { get; private set; }
         }

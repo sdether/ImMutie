@@ -1,6 +1,6 @@
 ﻿/*
  * ImMutie
- * Copyright (C) 2010 Arne F. Claassen
+ * Copyright (C) 2011 Arne F. Claassen
  * http://www.claassen.net/geek/blog geekblog [at] claassen [dot] net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
