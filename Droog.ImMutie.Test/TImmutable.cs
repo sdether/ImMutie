@@ -15,6 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+using System;
 using NUnit.Framework;
 
 namespace Droog.ImMutie.Test {
@@ -39,10 +40,48 @@ namespace Droog.ImMutie.Test {
             Assert.AreEqual(a.Name, b.Name);
         }
 
+        [Test]
+        public void Can_provide_extraneous_fields() {
+            var a = Immutable.Build<Person>(new {Foo = "bar", Id = 23});
+            Assert.AreEqual(23, a.Id);
+            Assert.IsNull(a.Name);
+        }
+
+        [Test]
+        public void Can_create_with_complex_type() {
+            var Complex = new BaseType();
+            var a = Immutable.Build<HazAComplexType>(new {Complex});
+            Assert.IsNotNull(a.Complex);
+            Assert.AreSame(Complex,a.Complex);
+        }
+
+        [Test]
+        public void Can_create_with_convertible_type() {
+            var Complex = new SubType();
+            var a = Immutable.Build<HazAComplexType>(new { Complex });
+            Assert.IsNotNull(a.Complex);
+            Assert.AreSame(Complex, a.Complex);
+        }
+
+        [Test]
+        public void Ignores_mismatch_values() {
+            var a = Immutable.Build<Person>(new {Id = 2.0});
+            Assert.AreEqual(0, a.Id);
+        }
+
 
         public class Person {
             public int Id { get; private set; }
             public string Name { get; private set; }
         }
+
+        public class HazAComplexType {
+            public BaseType Complex { get; private set; }
+        }
+
+        public class BaseType {
+            public readonly Guid Id = Guid.NewGuid();
+        }
+        public class SubType : BaseType {}
     }
 }
